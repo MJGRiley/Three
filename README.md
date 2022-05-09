@@ -1,2 +1,2 @@
 # Three
-playing around with three,js
+playing around with three.js
