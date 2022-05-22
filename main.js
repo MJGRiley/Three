@@ -1,9 +1,9 @@
 import "./style.css";
 
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { DoubleSide } from "three";
-import * as dat from "dat.gui";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+// import { DoubleSide } from "three";
+// import * as dat from "dat.gui";
 import gsap from "gsap";
 
 const scene = new THREE.Scene();
@@ -22,7 +22,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(devicePixelRatio);
 camera.position.setZ(3.75);
-camera.position.setY(-2);
+camera.position.setY(-20);
 
 
 //dat.gui
@@ -30,15 +30,15 @@ camera.position.setY(-2);
 // const world = {
 //   plane: {
 //     width: 20,
-//     height: 20,
-//     widthSegments: 17,
-//     heightSegments: 17,
+//     height: 50,
+//     widthSegments: 50,
+//     heightSegments: 125,
 //   },
 // };
-// gui.add(world.plane, "width", 1, 20).onChange(generatePlane);
-// gui.add(world.plane, "height", 1, 20).onChange(generatePlane);
-// gui.add(world.plane, "widthSegments", 1, 20).onChange(generatePlane);
-// gui.add(world.plane, "heightSegments", 1, 20).onChange(generatePlane);
+// gui.add(world.plane, "width", 1, 200).onChange(generatePlane);
+// gui.add(world.plane, "height", 1, 200).onChange(generatePlane);
+// gui.add(world.plane, "widthSegments", 1, 200).onChange(generatePlane);
+// gui.add(world.plane, "heightSegments", 1, 200).onChange(generatePlane);
 // function generatePlane() {
 //   planeMesh.geometry.dispose();
 //   planeMesh.geometry = new THREE.PlaneGeometry(
@@ -61,9 +61,9 @@ camera.position.setY(-2);
 //     new THREE.BufferAttribute(new Float32Array(colors), 3)
 //   );
 // }
-const planeGeometry = new THREE.PlaneGeometry(20, 25, 50, (25*2.5));
+const planeGeometry = new THREE.PlaneGeometry(20, 50, 50, 125);
 const planeMat = new THREE.MeshPhongMaterial({
-  side: DoubleSide,
+  // side: DoubleSide,
   flatShading: THREE.FlatShading,
   vertexColors: true,
 });
@@ -82,7 +82,7 @@ for (let i = 0; i < array.length; i++) {
     array[i + 1] = y - Math.random() * 0.15;
     array[i + 2] = z - Math.random() * 0.15;
   }
-  randomValues.push((Math.random()));
+  randomValues.push((Math.random()* Math.PI*2));
 }
 planeMesh.geometry.attributes.position.randomValues = randomValues;
 planeMesh.geometry.attributes.position.originialPosition =
@@ -121,12 +121,12 @@ function animate() {
     planeMesh.geometry.attributes.position;
   for (let i = 0; i < array.length; i += 3) {
     //x coordinate
-    array[i] = originialPosition[i] + Math.sin(frame)*(randomValues[i] *.001)
+    array[i] = originialPosition[i] + Math.sin(frame)*(randomValues[i] *.0002)
     //y
-    array[i+1] = originialPosition[i+1] + Math.cos(frame)*(randomValues[i+1] *.001)
-    array[i+1] += 0.001
+    array[i+1] = originialPosition[i+1] + Math.cos(frame)*(randomValues[i+1] *.0002)
+    array[i+1] -= 0.002
     //z
-    array[i+2] = originialPosition[i+2] + Math.sin(frame)*(randomValues[i+2] *.001)
+    array[i+2] = originialPosition[i+2] + Math.sin(frame)*(randomValues[i+2] *.0002)
 
   }
   planeMesh.geometry.attributes.position.needsUpdate = true;
